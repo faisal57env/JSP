@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forms Attributes</title>
+</head>
+<body>
+    <form >
+        <fieldset >
+            <legend> Personal details</legend>
+            <input type="text" size="40" name="Username" placeholder=" Enter Username" autocomplete="on" required minlength="3" maxlength="10" autofocus> <br><br>
+        <input type="email" size="50" name="email" placeholder=" Enter the email id" required autocomplete="off"><br><br>
+        <input type="password"  size="50" name="Password" placeholder="Enter the Password" autocomplete="off"><br><br>
+        <input type="number" name="age" placeholder="age" min="0" max="100"><br><br>
+        <input type="tel" name="DeptNO" value="40" readonly><br><br>
+        <input type="file" name="Resume" accept=".pdf, .jpg, .png">
+        </fieldset>
+        <br><br>
+        <fieldset>
+            <legend>Gender and lang Details </legend>
+            Gender:
+        <input type="radio" name="gender" value="Male" >Male
+        <input type="radio" name="gener" value="female">Female
+        <input type="radio" name="gender" value="other" disabled> Coz there is no 3rd Gender
+        <br><br>
+        Language:
+        <input type="checkbox" name="Language" value="English">English
+        <input type="checkbox" name="Language" value="Hindi"> Hindi
+        <input type="radio" name="Language" value="Telugu"> Telugu
+        <br><br>
+        </fieldset>
+        <br><br>
+        <button>Submit
+
+        </button>
+    </form>
+</body>
+</html>
+
+
+<!--
+placeholder ----- > Gives the reference message
+autoComp     ---- > on/off the suggestions
+minLength  ------ > minimum no of Character in text field
+maxlength -------- > maximum no of Character in text field
+min           ---- > 
+-->

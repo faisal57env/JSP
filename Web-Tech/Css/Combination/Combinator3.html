@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Combinators - Lists</title>
+    <style>
+        /* All direct children of ul */
+        ul > li {
+            color: orange;
+        }
+        
+        /* 4th direct sibling li */
+        ul > li:nth-child(4) {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Advanced Combinators</h1>
+    
+    <ul>
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3
+            <ul>
+                <li>Nested item</li>
+            </ul>
+        </li>
+        <li>Item 4 → Should be Red</li>
+        <li>Item 5</li>
+    </ul>
+</body>
+</html>

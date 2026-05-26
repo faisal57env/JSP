@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Child Combinator (&gt;)</title>
+    <style>
+        div > h2 {
+            background-color: black;
+            color: white;
+            padding: 10px;
+        }
+        
+        div > p {
+            background-color: #ffeb3b;
+            color: #333;
+            padding: 10px;
+        }
+        
+        span > h2 {
+            color: aqua;
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Child Combinator (&gt;)</h1>
+    <p>It targets <strong>only direct children</strong> of the specified element.</p>
+    <p>Represented by: <code>&gt;</code></p>
+
+    <div>
+        <h2>Direct Child h2</h2>
+        <p>Direct Child p</p>
+        
+        <span>
+            <h2>Indirect (Grandchild) h2 → Not affected</h2>
+            <p>Indirect p → Not affected</p>
+        </span>
+    </div>
+</body>
+</html>

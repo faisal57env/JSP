@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adjacent Sibling Combinator (+)</title>
+    <style>
+        h1 {
+            color: #333;
+        }
+        
+        /* Adjacent Sibling: Targets element immediately following another */
+        div + p {
+            color: blue;
+            font-weight: bold;
+        }
+        
+        div + h2 {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Adjacent Sibling Combinator (+)</h1>
+    <p>It targets the element that comes <strong>immediately after</strong> another element (at the same level).</p>
+    <p>Represented by: <code>+</code></p>
+
+    <div>
+        <h2>Inside Div</h2>
+        <p>Also inside Div</p>
+    </div>
+
+    <!-- These will be affected -->
+    <p>This paragraph is adjacent sibling of div → Blue</p>
+    <h2>This h2 is adjacent sibling of div → Red</h2>
+    
+    <p>This paragraph is NOT adjacent (there's h2 in between) → Normal</p>
+</body>
+</html>     

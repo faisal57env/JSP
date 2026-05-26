@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Child Combinator - Lists</title>
+    <style>
+        ul > li {
+            color: red;
+            font-weight: bold;
+        }
+        
+        ul > li > li {     /* Direct child li inside another li */
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <h1>Child Combinator in Lists</h1>
+    
+    <ul>
+        <li>Direct child of ul → Red</li>
+        <li>Direct child of ul → Red</li>
+    </ul>
+
+    <hr>
+    
+    <ul>
+        <li>
+            Direct child of ul → Red
+            <ul>
+                <li>Child of li (not direct child of outer ul) → Blue</li>
+                <li>Another nested → Blue</li>
+            </ul>
+        </li>
+    </ul>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>General Sibling Combinator (~)</title>
+    <style>
+        div ~ p {
+            color: blue;
+            font-weight: bold;
+        }
+        
+        div ~ h2 {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>General Sibling Combinator (~)</h1>
+    <p>It targets <strong>all siblings that come after</strong> the first element.</p>
+    <p>Represented by: <code>~</code></p>
+
+    <div>
+        <h2>Inside Div</h2>
+    </div>
+
+    <!-- All these will be affected -->
+    <p>First sibling after div → Blue</p>
+    <p>Second sibling after div → Blue</p>
+    <h2>Heading after div → Red</h2>
+    <p>Third sibling → Blue</p>
+</body>
+</html>

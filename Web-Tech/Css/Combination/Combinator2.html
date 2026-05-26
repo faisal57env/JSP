@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Styling with Combinators</title>
+    <style>
+        table th {
+            background-color: #333;
+            color: white;
+        }
+        
+        table td {
+            background-color: #ff5252;
+            color: white;
+        }
+        
+        /* More specific child combinator example */
+        thead > tr > th {
+            background-color: #4caf50;
+        }
+    </style>
+</head>
+<body>
+    <h1>Table with CSS Combinators</h1>
+    
+    <table border="1" cellpadding="15" align="center">
+        <thead>
+            <tr>
+                <th>Heading 1</th>
+                <th>Heading 2</th>
+                <th>Heading 3</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Data 1</td>
+                <td>Data 2</td>
+                <td>Data 3</td>
+            </tr>
+            <tr>
+                <td>Data 4</td>
+                <td>Data 5</td>
+                <td>Data 6</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

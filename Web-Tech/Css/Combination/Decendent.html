@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descendant Combinator (Space)</title>
+    <style>
+        div h2 {
+            background-color: black;
+            color: white;
+            padding: 10px;
+        }
+        
+        div p {
+            background-color: #ff9800;
+            color: white;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Descendant Combinator (Space)</h1>
+    <p>It targets <strong>all descendants</strong> (direct + indirect children).</p>
+    <p>Represented by: <code>space</code></p>
+
+    <div>
+        <h2>Direct Child h2</h2>
+        <p>Direct Child p</p>
+        
+        <span>
+            <h2>Indirect (Grandchild) h2 → Also affected</h2>
+            <p>Indirect p → Also affected</p>
+        </span>
+    </div>
+</body>
+</html>

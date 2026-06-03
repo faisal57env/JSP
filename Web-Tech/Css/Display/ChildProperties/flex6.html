@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexbox - flex-basis</title>
+    <style>
+        #parent {
+            border: 3px solid red;
+            background: #f0f0f0;
+            display: flex;
+            justify-content: space-around;
+            height: 150px;
+            margin: 20px;
+        }
+
+        #parent > div {
+            background-color: aqua;
+            border: 3px solid green;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        #child1 { flex-basis: 100px; }
+        /* Other children will use content size or default */
+    </style>
+</head>
+<body>
+    <h2>Flexbox: <code>flex-basis</code></h2>
+    <p>Defines the initial/main size of the flex item before growing/shrinking.</p>
+    
+    <div id="parent">
+        <div id="child1">Child 1 (basis: 100px)</div>
+        <div id="child2">Child 2</div>
+        <div id="child3">Child 3</div>
+    </div>
+</body>
+</html>

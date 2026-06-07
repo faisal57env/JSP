@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexbox - order</title>
+    <style>
+        #parent {
+            border: 3px solid red;
+            background: #f0f0f0;
+            display: flex;
+            justify-content: space-around;
+            height: 150px;
+            margin: 20px;
+        }
+
+        #parent > div {
+            background-color: aqua;
+            border: 3px solid green;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        #child4 { order: 1; }
+        #child3 { order: 2; }
+        #child2 { order: 3; }
+        #child1 { order: 4; }
+        /* child5 stays at default order: 0 */
+    </style>
+</head>
+<body>
+    <h2>Flexbox: <code>order</code></h2>
+    <p>Changes visual order without changing HTML source order.</p>
+    
+    <div id="parent">
+        <div id="child1">Child 1 (order: 4)</div>
+        <div id="child2">Child 2 (order: 3)</div>
+        <div id="child3">Child 3 (order: 2)</div>
+        <div id="child4">Child 4 (order: 1)</div>
+        <div id="child5">Child 5 (default)</div>
+    </div>
+</body>
+</html>

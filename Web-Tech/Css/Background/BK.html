@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Burger King Navbar Clone</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Flame', 'Arial Black', sans-serif; }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between; /* Splitting the content to far edges */
+            align-items: center;
+            padding: 0 40px;
+            height: 70px;
+            background-color: #f5ebdc; /* BK Signature background tint */
+            border-bottom: 1px solid #e2d7c7;
+        }
+
+        .left-section, .right-section {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .menu-toggle {
+            font-size: 24px;
+            cursor: pointer;
+            color: #502314;
+        }
+
+        .brand-logo {
+            font-size: 22px;
+            color: #d62300;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-item {
+            color: #502314;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .cart-btn {
+            background-color: #d62300;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px; /* Distinctly rounded BK style buttons */
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cart-btn:hover {
+            background-color: #b31d00;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="left-section">
+            <div class="menu-toggle">☰</div>
+            <a href="#" class="brand-logo">BURGER KING</a>
+            <a href="#" class="nav-item">Order</a>
+            <a href="#" class="nav-item">Offers</a>
+            <a href="#" class="nav-item">Menu</a>
+        </div>
+        
+        <div class="right-section">
+            <a href="#" class="nav-item">Sign In</a>
+            <button class="cart-btn">
+                <span>🛒</span> $0.00
+            </button>
+        </div>
+    </nav>
+</body>
+</html>

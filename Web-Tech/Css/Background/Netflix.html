@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix - Watch TV Shows Online, Watch Movies Online</title>
+    <link rel="stylesheet" href="Netflix.css">
+    <link rel="icon" href="https://assets.nflxext.com/us/ffe/siteui/common/icons/nficon2016.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- TOP HEADER -->
+    <header id="topHeader">
+        <div id="netflixLogo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix Logo">
+        </div>
+
+        <div id="headerRight">
+            <select id="langDropdown">
+                <option>🌐 English</option>
+                <option>🌐 हिन्दी</option>
+            </select>
+            <button id="signInBtn">Sign In</button>
+        </div>
+    </header>
+
+    <!-- HERO SECTION (Big Banner Area) -->
+    <section id="heroSection">
+        <div id="heroOverlay"></div>
+
+        <div id="heroContent">
+            <h1>Unlimited movies, TV shows and more</h1>
+            <p>Starts at ₹149. Cancel at any time.</p>
+
+            <div id="emailBox">
+                <p>Ready to watch? Enter your email to create or restart your membership.</p>
+                <div id="emailInputRow">
+                    <input type="email" id="emailInput" placeholder="Email address">
+                    <button id="getStartedBtn">Get Started <i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRENDING NOW SECTION -->
+    <section id="trendingSection">
+        <h2>Trending Now</h2>
+
+        <div id="trendingRow">
+
+            <div class="trendCard">
+                <span class="trendNumber">1</span>
+                <img src="https://occ-0-7695-2164.1.nflxso.net/dnm/api/v6/LmEnxtiAuzezXAKEJ3H0yBZi3zo/AAAABdsX8gzlD3SIvSpH0QcCn1C2Hp9lMH2P0T8s5GPK-q-3GarT5r97ZSaGnz7Xmt-9GrEUYULQwBX2AYnTkjEJGFoLLr7Z2pFg6g.jpg" alt="Trending 1">
+            </div>
+
+            <div class="trendCard">
+                <span class="trendNumber">2</span>
+                <img src="https://occ-0-7695-2164.1.nflxso.net/dnm/api/v6/LmEnxtiAuzezXAKEJ3H0yBZi3zo/AAAABVyu9QfXQHYnNoMoKw6NX8yDc7VbkK1mMa_PtyRuXe1EW-5zVAoiKDhlhg_F0MJO3aP3GqR8gMWqBCU2LxQCkL2WT7e-yBFKhA.jpg" alt="Trending 2">
+            </div>
+
+            <div class="trendCard">
+                <span class="trendNumber">3</span>
+                <img src="https://occ-0-7695-2164.1.nflxso.net/dnm/api/v6/LmEnxtiAuzezXAKEJ3H0yBZi3zo/AAAABcC6Y6X1GfAtZlGPJe6GTe3P1UqeF0j4a83IXM7F_s8Pv9rGNMPqh8K5OJkqpTHx3n6iLHJdUX1c7R7g4b-kxpJiAIDt2CRrA.jpg" alt="Trending 3">
+            </div>
+
+            <div class="trendCard">
+                <span class="trendNumber">4</span>
+                <img src="https://occ-0-7695-2164.1.nflxso.net/dnm/api/v6/LmEnxtiAuzezXAKEJ3H0yBZi3zo/AAAABVRMl5ybLM6qxDQlABqVlBNAnOhSwDzMJyH0ArtF1bOUlABQkmpPME3NUPF6FsUoOtF_kj4HVJeC9rMYHQ7sYJSmAuOQ4U2NaQ.jpg" alt="Trending 4">
+            </div>
+
+            <div class="trendCard">
+                <span class="trendNumber">5</span>
+                <img src="https://occ-0-7695-2164.1.nflxso.net/dnm/api/v6/LmEnxtiAuzezXAKEJ3H0yBZi3zo/AAAABQhCrXD2kYUdnB5u8O8VkFt_s5XaxCOH9vUkFLLzMDg8YanVqmNBXp_lS_sJGqSyBNDMPQaQbsNiqyeBHRZFWvMvmLxDLfhHoQ.jpg" alt="Trending 5">
+            </div>
+
+            <div class="trendCard">
+                <span class="trendNumber">6</span>
+                <img src="https://occ-0-7695-2164.1.nflxso.net/dnm/api/v6/LmEnxtiAuzezXAKEJ3H0yBZi3zo/AAAABYyF_TqX9lnGaQLf2ByLFY6cJ_G5d_6HXw9K1RD-0G87cC1yfHGEtpuKS8BNAA67pCERDdm-l7BcItv7c0fIrGDg7PcWmIJ9rw.jpg" alt="Trending 6">
+            </div>
+
+        </div>
+    </section>
+
+    <!-- MORE REASONS SECTION -->
+    <section id="reasonsSection">
+        <h2>More reasons to join</h2>
+
+        <div id="reasonsGrid">
+
+            <div class="reasonCard">
+                <div class="reasonText">
+                    <h3>Enjoy on your TV</h3>
+                    <p>Watch on smart TVs, PlayStation, Xbox, Chromecast, Apple TV, Blu-ray players and more.</p>
+                </div>
+                <div class="reasonIcon">
+                    <i class="fa-solid fa-tv"></i>
+                </div>
+            </div>
+
+            <div class="reasonCard">
+                <div class="reasonText">
+                    <h3>Download your shows to watch offline</h3>
+                    <p>Save your favourites easily and always have something to watch.</p>
+                </div>
+                <div class="reasonIcon">
+                    <i class="fa-solid fa-download"></i>
+                </div>
+            </div>
+
+            <div class="reasonCard">
+                <div class="reasonText">
+                    <h3>Watch everywhere</h3>
+                    <p>Stream unlimited movies and TV shows on your phone, tablet, laptop, and TV.</p>
+                </div>
+                <div class="reasonIcon">
+                    <i class="fa-solid fa-mobile-screen"></i>
+                </div>
+            </div>
+
+            <div class="reasonCard">
+                <div class="reasonText">
+                    <h3>Create profiles for kids</h3>
+                    <p>Send kids on adventures with their favourite characters in a space made just for them.</p>
+                </div>
+                <div class="reasonIcon">
+                    <i class="fa-solid fa-child"></i>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section id="faqSection">
+        <h2>Frequently Asked Questions</h2>
+
+        <div id="faqList">
+
+            <div class="faqItem">
+                <button class="faqQuestion" onclick="toggleFaq(this)">
+                    What is Netflix?
+                    <span class="faqIcon"><i class="fa-solid fa-plus"></i></span>
+                </button>
+                <div class="faqAnswer">
+                    <p>Netflix is a streaming service that offers a wide variety of award-winning TV shows, movies, anime, documentaries, and more on thousands of internet-connected devices. You can watch as much as you want, whenever you want — all for one low monthly price.</p>
+                </div>
+            </div>
+
+            <div class="faqItem">
+                <button class="faqQuestion" onclick="toggleFaq(this)">
+                    How much does Netflix cost?
+                    <span class="faqIcon"><i class="fa-solid fa-plus"></i></span>
+                </button>
+                <div class="faqAnswer">
+                    <p>Watch Netflix on your smartphone, tablet, Smart TV, laptop, or streaming device, all for one fixed monthly fee. Plans range from ₹149 to ₹649 a month. No extra costs, no contracts.</p>
+                </div>
+            </div>
+
+            <div class="faqItem">
+                <button class="faqQuestion" onclick="toggleFaq(this)">
+                    Where can I watch?
+                    <span class="faqIcon"><i class="fa-solid fa-plus"></i></span>
+                </button>
+                <div class="faqAnswer">
+                    <p>Watch anywhere, anytime. Sign in with your Netflix account to watch instantly on the web at netflix.com from your personal computer or on any internet-connected device that offers the Netflix app.</p>
+                </div>
+            </div>
+
+            <div class="faqItem">
+                <button class="faqQuestion" onclick="toggleFaq(this)">
+                    How do I cancel?
+                    <span class="faqIcon"><i class="fa-solid fa-plus"></i></span>
+                </button>
+                <div class="faqAnswer">
+                    <p>Netflix is flexible. There are no pesky contracts and no commitments. You can easily cancel your account online in two clicks. There are no cancellation fees — start or stop your account anytime.</p>
+                </div>
+            </div>
+
+            <div class="faqItem">
+                <button class="faqQuestion" onclick="toggleFaq(this)">
+                    What can I watch on Netflix?
+                    <span class="faqIcon"><i class="fa-solid fa-plus"></i></span>
+                </button>
+                <div class="faqAnswer">
+                    <p>Netflix has an extensive library of feature films, documentaries, shows, anime, award-winning Netflix originals, and more. Watch as much as you want, anytime you want.</p>
+                </div>
+            </div>
+
+            <div class="faqItem">
+                <button class="faqQuestion" onclick="toggleFaq(this)">
+                    Is Netflix good for kids?
+                    <span class="faqIcon"><i class="fa-solid fa-plus"></i></span>
+                </button>
+                <div class="faqAnswer">
+                    <p>The Netflix Kids experience is included in your membership to give parents control while kids enjoy family-friendly TV shows and films in their own space. Kids profiles come with PIN-protected parental controls.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Bottom Email Box -->
+        <div id="bottomEmailBox">
+            <p>Ready to watch? Enter your email to create or restart your membership.</p>
+            <div id="bottomEmailRow">
+                <input type="email" placeholder="Email address">
+                <button>Get Started <i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- FOOTER SECTION -->
+    <footer id="footerSection">
+
+        <p id="footerCallLine">Questions? Call <a href="tel:000-800-919-1743">000-800-919-1743</a></p>
+
+        <div id="footerLinks">
+            <a href="#">FAQ</a>
+            <a href="#">Help Centre</a>
+            <a href="#">Account</a>
+            <a href="#">Media Centre</a>
+            <a href="#">Investor Relations</a>
+            <a href="#">Jobs</a>
+            <a href="#">Ways to Watch</a>
+            <a href="#">Terms of Use</a>
+            <a href="#">Privacy</a>
+            <a href="#">Cookie Preferences</a>
+            <a href="#">Corporate Information</a>
+            <a href="#">Contact Us</a>
+            <a href="#">Speed Test</a>
+            <a href="#">Legal Notices</a>
+            <a href="#">Only on Netflix</a>
+        </div>
+
+        <select id="footerLangDropdown">
+            <option>🌐 English</option>
+            <option>🌐 हिन्दी</option>
+        </select>
+
+        <p id="copyrightLine">© 2026 Netflix Clone. All rights reserved.</p>
+
+    </footer>
+
+    <script>
+        function toggleFaq(btn) {
+            const item = btn.parentElement;
+            const answer = item.querySelector('.faqAnswer');
+            const icon = btn.querySelector('.faqIcon i');
+            const isOpen = answer.style.maxHeight;
+
+            // Close all first
+            document.querySelectorAll('.faqAnswer').forEach(a => a.style.maxHeight = '');
+            document.querySelectorAll('.faqIcon i').forEach(i => {
+                i.classList.remove('fa-xmark');
+                i.classList.add('fa-plus');
+            });
+
+            // Open clicked if it was closed
+            if (!isOpen) {
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+                icon.classList.remove('fa-plus');
+                icon.classList.add('fa-xmark');
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,459 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #000;
+    color: #fff;
+    line-height: 1.6;
+}
+
+/* ==================== BORDERS TO SEE SECTIONS ==================== */
+#topHeader        { border: 4px solid red; }
+#netflixLogo      { border: 2px solid orange; }
+#headerRight      { border: 2px solid yellow; }
+
+#heroSection      { border: 4px solid lime; }
+#heroContent      { border: 2px solid cyan; }
+#emailBox         { border: 2px solid magenta; }
+
+#trendingSection  { border: 4px solid blue; }
+#trendingRow      { border: 2px solid purple; }
+
+#reasonsSection   { border: 4px solid teal; }
+#reasonsGrid      { border: 2px solid coral; }
+
+#faqSection       { border: 4px solid gold; }
+#faqList          { border: 2px solid hotpink; }
+
+#footerSection    { border: 4px solid white; }
+/* ================================================================= */
+
+
+/* ==================== HEADER ==================== */
+
+#topHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+}
+
+#netflixLogo img {
+    height: 45px;
+}
+
+#headerRight {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+#langDropdown, #footerLangDropdown {
+    background: transparent;
+    color: white;
+    border: 1px solid white;
+    padding: 8px 14px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+#signInBtn {
+    background: #e50914;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+/* ==================== HERO SECTION ==================== */
+
+#heroSection {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    background-image: url('https://assets.nflxext.com/ffe/siteui/vlv3/7ea4545e-42d3-4ebf-82fd-0e1984dc6375/web/US-en-20260316-TRIFECTA-perspective_2d5af5c9-bdc0-4b6d-863c-38219c1acbff_large.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+#heroOverlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+/* Horizontal lines at top and bottom of hero */
+#heroSection::before,
+#heroSection::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0;
+    height: 4px;
+    background: rgba(34, 34, 34, 0.8);
+    z-index: 2;
+}
+#heroSection::before { top: 0; }
+#heroSection::after  { bottom: 0; }
+
+#heroContent {
+    position: relative;
+    z-index: 5;
+    max-width: 750px;
+    padding: 20px;
+}
+
+#heroContent h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+#heroContent > p {
+    font-size: 1.6rem;
+    margin-bottom: 30px;
+}
+
+#emailBox p {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+#emailInputRow, #bottomEmailRow {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#emailInput, #bottomEmailRow input {
+    flex: 1;
+    min-width: 280px;
+    max-width: 420px;
+    height: 58px;
+    padding: 0 20px;
+    font-size: 1rem;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    background: rgba(0,0,0,0.6);
+    color: white;
+}
+
+#getStartedBtn, #bottomEmailRow button {
+    height: 58px;
+    padding: 0 28px;
+    background: #e50914;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: 0.2s;
+}
+
+#getStartedBtn:hover, #bottomEmailRow button:hover {
+    background: #f40612;
+    transform: scale(1.02);
+}
+
+/* ==================== TRENDING SECTION ==================== */
+
+#trendingSection {
+    background: #000;
+    padding: 70px 5%;
+}
+
+#trendingSection h2 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin-bottom: 35px;
+}
+
+#trendingRow {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: #555 #111;
+}
+
+.trendCard {
+    position: relative;
+    min-width: 200px;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.trendCard:hover {
+    transform: scale(1.05);
+}
+
+.trendCard img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+}
+
+.trendNumber {
+    position: absolute;
+    bottom: -10px;
+    left: -15px;
+    font-size: 7rem;
+    font-weight: 900;
+    color: black;
+    -webkit-text-stroke: 3px #555;
+    line-height: 1;
+    z-index: 2;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* ==================== REASONS SECTION ==================== */
+
+#reasonsSection {
+    background: #000;
+    padding: 70px 5%;
+    border-top: 8px solid #222;
+    border-bottom: 8px solid #222;
+}
+
+#reasonsSection h2 {
+    font-size: 2.6rem;
+    font-weight: 700;
+    margin-bottom: 40px;
+}
+
+#reasonsGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.reasonCard {
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    border-radius: 15px;
+    padding: 35px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    transition: 0.3s;
+    cursor: default;
+}
+
+.reasonCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(229, 9, 20, 0.2);
+}
+
+.reasonText h3 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.reasonText p {
+    font-size: 1rem;
+    color: #ccc;
+    line-height: 1.6;
+    max-width: 320px;
+}
+
+.reasonIcon {
+    font-size: 3.5rem;
+    color: #e50914;
+    flex-shrink: 0;
+}
+
+/* ==================== FAQ SECTION ==================== */
+
+#faqSection {
+    background: #000;
+    padding: 70px 5%;
+    border-top: 8px solid #222;
+}
+
+#faqSection h2 {
+    font-size: 2.6rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+#faqList {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 50px;
+}
+
+.faqItem {
+    background: #2d2d2d;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.faqQuestion {
+    width: 100%;
+    background: #2d2d2d;
+    color: white;
+    border: none;
+    padding: 25px 28px;
+    font-size: 1.3rem;
+    font-weight: 400;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    transition: background 0.2s;
+}
+
+.faqQuestion:hover {
+    background: #404040;
+}
+
+.faqIcon {
+    font-size: 1.8rem;
+    color: white;
+    flex-shrink: 0;
+    margin-left: 20px;
+}
+
+.faqAnswer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    border-top: 2px solid #555;
+}
+
+.faqAnswer p {
+    padding: 25px 28px;
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: #eee;
+}
+
+/* ==================== BOTTOM EMAIL BOX ==================== */
+
+#bottomEmailBox {
+    text-align: center;
+    margin-top: 60px;
+}
+
+#bottomEmailBox p {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+#bottomEmailRow {
+    justify-content: center;
+}
+
+/* ==================== FOOTER ==================== */
+
+#footerSection {
+    background: #141414;
+    padding: 60px 5%;
+    color: #aaa;
+    border-top: 8px solid #222;
+}
+
+#footerCallLine {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+}
+
+#footerCallLine a {
+    color: #aaa;
+    text-decoration: underline;
+}
+
+#footerLinks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px 35px;
+    margin-bottom: 35px;
+}
+
+#footerLinks a {
+    color: #aaa;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: 0.2s;
+}
+
+#footerLinks a:hover {
+    text-decoration: underline;
+}
+
+#footerLangDropdown {
+    margin-bottom: 30px;
+    display: block;
+}
+
+#copyrightLine {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* ==================== RESPONSIVE ==================== */
+
+@media (max-width: 900px) {
+    #heroContent h1 { font-size: 2.5rem; }
+    #heroContent > p { font-size: 1.3rem; }
+
+    #reasonsGrid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    #topHeader { padding: 12px 4%; }
+
+    #netflixLogo img { height: 35px; }
+
+    #heroContent h1 { font-size: 1.8rem; }
+    #heroContent > p { font-size: 1.1rem; }
+
+    #emailInputRow { flex-direction: column; align-items: stretch; }
+    #emailInput { min-width: unset; max-width: unset; }
+    #getStartedBtn { width: 100%; }
+
+    #trendingSection h2,
+    #reasonsSection h2,
+    #faqSection h2 { font-size: 1.8rem; }
+
+    .trendCard { min-width: 140px; }
+    .trendCard img { height: 210px; }
+    .trendNumber { font-size: 5rem; }
+
+    .faqQuestion { font-size: 1.1rem; padding: 20px; }
+    .faqAnswer p { font-size: 1rem; padding: 20px; }
+}

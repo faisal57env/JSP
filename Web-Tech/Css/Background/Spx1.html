@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpaceX </title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial Heading', sans-serif; }
+        
+        body {
+            background-color: black; /* Dark background to see the transparent navbar */
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            height: 100px;
+            padding: 0 50px;
+            background: transparent;
+            position: absolute;
+            width: 100%;
+            z-index: 10;
+        }
+
+        .logo-container svg, .logo-text {
+            color: white;
+            font-size: 26px;
+            letter-spacing: 6px;
+            font-weight: 900;
+            text-decoration: none;
+            margin-right: 40px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            position: relative;
+            padding-bottom: 4px;
+        }
+
+        /* Subtle underline animation like the real site */
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 1px;
+            bottom: 0;
+            left: 0;
+            background-color: white;
+            transform-origin: bottom right;
+            transition: transform 0.25s ease-out;
+        }
+        .nav-menu a:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        .right-menu {
+            margin-left: auto; /* Smart flex alignment trick */
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="#" class="logo-text">SPACEX</a>
+        <ul class="nav-menu">
+            <li><a href="#">Falcon 9</a></li>
+            <li><a href="#">Falcon Heavy</a></li>
+            <li><a href="#">Dragon</a></li>
+            <li><a href="#">Starship</a></li>
+            <li><a href="#">Human Spaceflight</a></li>
+        </ul>
+        <a href="#" class="right-menu">Shop</a>
+    </nav>
+</body>
+</html>

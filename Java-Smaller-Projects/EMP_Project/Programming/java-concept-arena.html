@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Java Concept Arena</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root, [data-theme="light"] {
+      --bg: #f6f7fb;
+      --surface: #ffffff;
+      --surface-2: #eef1f7;
+      --text: #161b26;
+      --muted: #657089;
+      --line: #d9deea;
+      --primary: #5b7cff;
+      --primary-2: #7f5cff;
+      --success: #23c16b;
+      --warning: #ffb020;
+      --danger: #ff5d73;
+      --code-bg: #101524;
+      --code-text: #dce7ff;
+      --shadow: 0 18px 50px rgba(17, 24, 39, 0.12);
+    }
+    [data-theme="dark"] {
+      --bg: #0b1020;
+      --surface: #131a2e;
+      --surface-2: #1a223a;
+      --text: #edf2ff;
+      --muted: #9aa7c7;
+      --line: #283251;
+      --primary: #7aa2ff;
+      --primary-2: #9b7bff;
+      --success: #27d980;
+      --warning: #ffbf47;
+      --danger: #ff6e82;
+      --code-bg: #0a0f1d;
+      --code-text: #d7e4ff;
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Space Grotesk', sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(122,162,255,0.14), transparent 24%),
+        radial-gradient(circle at top left, rgba(155,123,255,0.12), transparent 22%),
+        var(--bg);
+      color: var(--text);
+    }
+    .app {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(14px);
+      background: color-mix(in srgb, var(--bg) 78%, transparent);
+      border-bottom: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
+    }
+    .topbar-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 16px 20px;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr auto auto;
+      gap: 12px;
+      align-items: center;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      color: white;
+      box-shadow: var(--shadow);
+      font-weight: 700;
+    }
+    .search, .theme-btn, .toggle-all {
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--text);
+      border-radius: 16px;
+      min-height: 48px;
+    }
+    .search {
+      width: 100%;
+      padding: 0 16px;
+      outline: none;
+    }
+    .theme-btn, .toggle-all {
+      padding: 0 16px;
+      cursor: pointer;
+      transition: transform .2s ease, border-color .2s ease, background .2s ease;
+    }
+    .theme-btn:hover, .toggle-all:hover, .copy-btn:hover, .master-btn:hover, .quiz-btn:hover, .reveal-btn:hover {
+      transform: translateY(-2px);
+      border-color: var(--primary);
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: 1.3fr .9fr;
+      gap: 18px;
+      margin: 24px 0;
+    }
+    .hero-card, .stats-card, .concept-card {
+      background: linear-gradient(180deg, color-mix(in srgb, var(--surface) 90%, white 10%), var(--surface));
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+    .hero-card { padding: 28px; }
+    .hero-card h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 4vw, 3.3rem);
+      line-height: 1.02;
+    }
+    .hero-card p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 62ch;
+      line-height: 1.7;
+    }
+    .hero-grid {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .micro {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--surface-2);
+    }
+    .micro strong { display: block; margin-bottom: 4px; }
+    .stats-card {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      justify-content: space-between;
+    }
+    .progress-shell {
+      height: 16px;
+      background: var(--surface-2);
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--success), var(--primary));
+      transition: width .35s ease;
+    }
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .stat {
+      padding: 16px;
+      border-radius: 18px;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: 290px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+    .sidebar {
+      position: sticky;
+      top: 88px;
+      padding: 18px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      max-height: calc(100vh - 110px);
+      overflow: auto;
+    }
+    .sidebar h3 { margin-top: 0; }
+    .nav-list {
+      display: grid;
+      gap: 8px;
+      padding: 0;
+      margin: 14px 0 0;
+      list-style: none;
+    }
+    .nav-list a {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      padding: 12px 14px;
+      border-radius: 16px;
+      transition: all .2s ease;
+      font-size: .95rem;
+    }
+    .nav-list a:hover { border-color: var(--primary); transform: translateX(3px); }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 26px;
+      height: 26px;
+      padding: 0 8px;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--primary) 16%, transparent);
+      color: var(--primary);
+      font-size: .78rem;
+      font-weight: 700;
+    }
+    .content {
+      display: grid;
+      gap: 18px;
+    }
+    details.concept-card {
+      overflow: hidden;
+    }
+    details > summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 22px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    details > summary::-webkit-details-marker { display: none; }
+    .summary-left h2 {
+      margin: 0 0 6px;
+      font-size: 1.25rem;
+    }
+    .summary-left p {
+      margin: 0;
+      color: var(--muted);
+    }
+    .summary-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--surface-2);
+      color: var(--muted);
+      font-size: .82rem;
+    }
+    .body {
+      padding: 0 24px 24px;
+      border-top: 1px solid var(--line);
+      display: grid;
+      gap: 20px;
+    }
+    .panel {
+      margin-top: 18px;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 18px;
+    }
+    .panel h3 {
+      margin: 0 0 12px;
+      font-size: 1rem;
+    }
+    .hook {
+      border-left: 4px solid var(--warning);
+      padding-left: 14px;
+      color: var(--text);
+    }
+    .ascii {
+      white-space: pre-wrap;
+      font-family: 'JetBrains Mono', monospace;
+      background: var(--code-bg);
+      color: #b8c7ff;
+      padding: 18px;
+      border-radius: 18px;
+      overflow: auto;
+      border: 1px solid #263252;
+      line-height: 1.5;
+      font-size: .92rem;
+    }
+    .code-wrap {
+      position: relative;
+      background: var(--code-bg);
+      border-radius: 18px;
+      border: 1px solid #263252;
+      overflow: hidden;
+    }
+    .code-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-bottom: 1px solid #263252;
+      color: #9fb2e7;
+      font-size: .9rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    pre {
+      margin: 0;
+      padding: 18px;
+      overflow: auto;
+      color: var(--code-text);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .92rem;
+      line-height: 1.6;
+    }
+    .copy-btn, .master-btn, .quiz-btn, .reveal-btn {
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--text);
+      border-radius: 14px;
+      padding: 10px 14px;
+      cursor: pointer;
+      transition: all .2s ease;
+      font-weight: 600;
+    }
+    .master-btn.mastered {
+      background: color-mix(in srgb, var(--success) 18%, transparent);
+      border-color: color-mix(in srgb, var(--success) 60%, var(--line));
+      color: var(--success);
+    }
+    .steps {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      padding-left: 18px;
+    }
+    .quiz-box {
+      display: grid;
+      gap: 12px;
+    }
+    .quiz-answer {
+      display: none;
+      padding: 14px;
+      border-radius: 16px;
+      background: color-mix(in srgb, var(--primary) 12%, transparent);
+      border: 1px solid color-mix(in srgb, var(--primary) 55%, var(--line));
+    }
+    .quiz-answer.show { display: block; }
+    .footer-note {
+      text-align: center;
+      color: var(--muted);
+      padding: 26px 0 60px;
+    }
+    .empty-msg {
+      display: none;
+      padding: 18px;
+      border: 1px dashed var(--line);
+      border-radius: 18px;
+      color: var(--muted);
+      text-align: center;
+      background: var(--surface);
+    }
+    @media (max-width: 1100px) {
+      .hero, .layout, .topbar-inner { grid-template-columns: 1fr; }
+      .sidebar { position: static; max-height: none; }
+    }
+    @media (max-width: 720px) {
+      .hero-grid, .stats-row { grid-template-columns: 1fr; }
+      details > summary { padding: 18px; }
+      .body { padding: 0 18px 18px; }
+      .summary-right { justify-content: flex-start; }
+      .app { padding: 14px; }
+      .topbar-inner { padding: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="logo">J↑</div>
+        <div>
+          <div>Java Concept Arena</div>
+          <small style="color:var(--muted)">23 gamified concept battles</small>
+        </div>
+      </div>
+      <input id="searchBox" class="search" type="search" placeholder="Search: prime, array, recursion, string..." aria-label="Search concepts">
+      <button class="toggle-all" id="toggleAllBtn">Open All</button>
+      <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">🌙</button>
+    </div>
+  </header>
+
+  <main class="app">
+    <section class="hero">
+      <article class="hero-card">
+        <h1>Master Java like a code detective, not a note copier.</h1>
+        <p>Every concept below starts with a hook, shows the hidden machinery using ASCII visuals, gives you a clean Java snippet, and ends with a mini challenge. You will read less and think more.</p>
+        <div class="hero-grid">
+          <div class="micro"><strong>Hook first</strong><span>Real-world analogy before definition.</span></div>
+          <div class="micro"><strong>See inside</strong><span>Memory flow, loops, arrays, recursion maps.</span></div>
+          <div class="micro"><strong>Fight back</strong><span>Predict output. Solve mini puzzle. Lock it in.</span></div>
+        </div>
+      </article>
+      <aside class="stats-card">
+        <div>
+          <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:10px;">
+            <strong>Mastery Progress</strong>
+            <span id="progressText">0 / 23</span>
+          </div>
+          <div class="progress-shell"><div class="progress-bar" id="progressBar"></div></div>
+        </div>
+        <div class="stats-row">
+          <div class="stat"><strong id="openCount">23</strong><div style="color:var(--muted)">Concept cards</div></div>
+          <div class="stat"><strong>Java</strong><div style="color:var(--muted)">Strings, arrays, recursion, matrices</div></div>
+        </div>
+        <div class="stat">
+          <strong>Win condition</strong>
+          <div style="color:var(--muted); margin-top:8px;">Mark a concept mastered only after you can explain the ASCII diagram and solve the checkpoint without peeking.</div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="layout">
+      <aside class="sidebar">
+        <h3>Concept Map</h3>
+        <p style="color:var(--muted); margin:0 0 12px;">Jump fast. Filter instantly.</p>
+        <ul class="nav-list" id="navList"></ul>
+      </aside>
+
+      <section class="content" id="conceptContainer">
+        <div class="empty-msg" id="emptyMsg">No concept matched your search. Try keywords like <strong>array</strong>, <strong>recursion</strong>, or <strong>prime</strong>.</div>
+
+        <details class="concept-card concept-item" data-title="check if number is prime">
+          <summary>
+            <div class="summary-left"><h2>1. Check if a Number is Prime</h2><p>Spot the intruder divisors.</p></div>
+            <div class="summary-right"><span class="pill">Math + Loop</span><button class="master-btn">Mark Mastered</button></div>
+          </summary>
+          <div class="body">
+            <div class="panel hook"><h3>Hook Me</h3><p>Imagine a VIP club with one strict rule: a true prime number allows entry only to 1 and itself. The moment any other number sneaks in as a clean divisor, the bouncer yells, “Fake prime!”</p></div>
+            <div class="panel"><h3>Visual Anchor</h3><div class="ascii">num = 29
+check divisors from 2 to sqrt(29)
+
+2 -> 29 % 2 = 1  ✅
+3 -> 29 % 3 = 2  ✅
+4 -> 29 % 4 = 1  ✅
+5 -> 29 % 5 = 4  ✅
+
+No clean hit
+=> PRIME
+
+Why stop at sqrt(n)?
+If n = a * b, then at least one of a or b <= sqrt(n)</div></div>
+            <div class="panel"><h3>Code Breakdown</h3><div class="code-wrap"><div class="code-head"><span>PrimeCheck.java</span><button class="copy-btn">Copy Code</button></div><pre><code>int num = 29;
+boolean isPrime = num >= 2;
+for (int i = 2; i * i <= num && isPrime; i++) {
+    if (num % i == 0) {
+        isPrime = false;
+    }
+}
+System.out.println(isPrime ? "Prime" : "Not Prime");</code></pre></div><ol class="steps"><li><strong>Line 1:</strong> Pick the suspect number.</li><li><strong>Line 2:</strong> Numbers below 2 are instantly disqualified.</li><li><strong>Line 3:</strong> Scan only till <code>i * i &lt;= num</code>, the smart cutoff.</li><li><strong>Line 4-6:</strong> One perfect division is enough to destroy primality.</li><li><strong>Line 8:</strong> Print the verdict.</li></ol></div>
+            <div class="panel quiz-box"><h3>Interactive Checkpoint</h3><p>Predict the output for <code>num = 49</code>. At which divisor does the loop catch it?</p><button class="reveal-btn">Reveal Answer</button><div class="quiz-answer">Output: <strong>Not Prime</strong>. The catch happens at <strong>7</strong> because <code>49 % 7 == 0</code>.</div></div>
+          </div>
+        </details>
+
+        <details class="concept-card concept-item" data-title="prime numbers in range">
+          <summary><div class="summary-left"><h2>2. Prime Numbers in a Range</h2><p>Run a prime radar over many numbers.</p></div><div class="summary-right"><span class="pill">Nested Loop</span><button class="master-btn">Mark Mastered</button></div></summary>
+          <div class="body">
+            <div class="panel hook"><h3>Hook Me</h3><p>Think of a metal detector at an airport line. Each number walks through the scanner, and the detector checks whether hidden divisors exist. Clean numbers are announced as primes.</p></div>
+            <div class="panel"><h3>Visual Anchor</h3><div class="ascii">Range: 10 to 20
+
+10 -> divisible by 2 ❌
+11 -> no divisors ✅
+12 -> divisible by 2 ❌
+13 -> no divisors ✅
+14 -> divisible by 2 ❌
+15 -> divisible by 3 ❌
+16 -> divisible by 2 ❌
+17 -> no divisors ✅
+18 -> divisible by 2 ❌
+19 -> no divisors ✅
+20 -> divisible by 2 ❌</div></div>
+            <div class="panel"><h3>Code Breakdown</h3><div class="code-wrap"><div class="code-head"><span>PrimeRange.java</span><button class="copy-btn">Copy Code</button></div><pre><code>for (int n = 10; n <= 20; n++) {
+    boolean prime = n >= 2;
+    for (int i = 2; i * i <= n && prime; i++) {
+        if (n % i == 0) prime = false;
+    }
+    if (prime) System.out.print(n + " ");
+}</code></pre></div><ol class="steps"><li>Outer loop moves across the range.</li><li>For each number, we reset the prime flag.</li><li>Inner loop tests divisors smartly till square root.</li><li>Only survivors get printed.</li></ol></div>
+            <div class="panel quiz-box"><h3>Interactive Checkpoint</h3><p>What primes appear from <code>2</code> to <code>10</code>?</p><button class="reveal-btn">Reveal Answer</button><div class="quiz-answer">Answer: <strong>2 3 5 7</strong>.</div></div>
+          </div>
+        </details>
+
+        <details class="concept-card concept-item" data-title="armstrong number">
+          <summary><div class="summary-left"><h2>3. Armstrong Number</h2><p>Digits power up and report back.</p></div><div class="summary-right"><span class="pill">Digits</span><button class="master-btn">Mark Mastered</button></div></summary>
+          <div class="body">
+            <div class="panel hook"><h3>Hook Me</h3><p>An Armstrong number is like a superhero team where every digit contributes its powered-up strength, and the total exactly rebuilds the original number.</p></div>
+            <div class="panel"><h3>Visual Anchor</h3><div class="ascii">Example: 153
+
+Digits: 1, 5, 3
+Power count = 3 digits
+
+1^3 =   1
+5^3 = 125
+3^3 =  27
+-----------
+Total = 153 ✅
+
+Original == powered sum
+=> Armstrong</div></div>
+            <div class="panel"><h3>Code Breakdown</h3><div class="code-wrap"><div class="code-head"><span>Armstrong.java</span><button class="copy-btn">Copy Code</button></div><pre><code>int num = 153, temp = num, digits = 0, sum = 0;
+while (temp > 0) {
+    digits++;
+    temp /= 10;
+}
+temp = num;
+while (temp > 0) {
+    int d = temp % 10;
+    sum += Math.pow(d, digits);
+    temp /= 10;
+}
+System.out.println(sum == num ? "Armstrong" : "Not Armstrong");</code></pre></div><ol class="steps"><li>First loop counts digits.</li><li>Second loop extracts each digit with <code>% 10</code>.</li><li>Each digit is raised to total digit count.</li><li>Compare final sum with the original number.</li></ol></div>
+            <div class="panel quiz-box"><h3>Interactive Checkpoint</h3><p>Is <code>370</code> Armstrong? Try the digit powers first.</p><button class="reveal-btn">Reveal Answer</button><div class="quiz-answer">Yes. <code>3^3 + 7^3 + 0^3 = 27 + 343 + 0 = 370</code>.</div></div>
+          </div>
+        </details>
+
+        <details class="concept-card concept-item" data-title="fibonacci series iterative">
+          <summary><div class="summary-left"><h2>4. Fibonacci Series</h2><p>Each term is born from the previous two.</p></div><div class="summary-right"><span class="pill">Sequence</span><button class="master-btn">Mark Mastered</button></div></summary>
+          <div class="body">
+            <div class="panel hook"><h3>Hook Me</h3><p>Picture a rabbit kingdom where each new pair depends on the last two generations. Fibonacci is a family tree where the future is always built from the recent past.</p></div>
+            <div class="panel"><h3>Visual Anchor</h3><div class="ascii">a = 0, b = 1
+
+next = a + b
+
+Step 1: 0 1
+Step 2: next = 1   -> 0 1 1
+Step 3: next = 2   -> 0 1 1 2
+Step 4: next = 3   -> 0 1 1 2 3
+Step 5: next = 5   -> 0 1 1 2 3 5</div></div>
+            <div class="panel"><h3>Code Breakdown</h3><div class="code-wrap"><div class="code-head"><span>Fibonacci.java</span><button class="copy-btn">Copy Code</button></div><pre><code>int n = 7, a = 0, b = 1;
+for (int i = 0; i < n; i++) {
+    System.out.print(a + " ");
+    int next = a + b;
+    a = b;
+    b = next;
+}</code></pre></div><ol class="steps"><li><code>a</code> is current term. <code>b</code> is next helper.</li><li>Print current term first.</li><li>Build new term by adding old pair.</li><li>Shift both variables forward like a sliding window.</li></ol></div>
+            <div class="panel quiz-box"><h3>Interactive Checkpoint</h3><p>What are the first 6 terms printed?</p><button class="reveal-btn">Reveal Answer</button><div class="quiz-answer">Answer: <strong>0 1 1 2 3 5</strong>.</div></div>
+          </div>
+        </details>
+
+        <details class="concept-card concept-item" data-title="palindrome number">
+          <summary><div class="summary-left"><h2>5. Palindrome Number</h2><p>Same face from front and back.</p></div><div class="summary-right"><span class="pill">Reverse Logic</span><button class="master-btn">Mark Mastered</button></div></summary>
+          <div class="body">
+            <div class="panel hook"><h3>Hook Me</h3><p>A palindrome number is like a perfectly symmetrical building. Walk from the left gate or the right gate, the structure looks identical.</p></div>
+            <div class="panel"><h3>Visual Anchor</h3><div class="ascii">num = 121
+
+Take digits from right:
+121 % 10 = 1  -> rev = 1
+12  % 10 = 2  -> rev = 12
+1   % 10 = 1  -> rev = 121
+
+original == reversed ✅</div></div>
+            <div class="panel"><h3>Code Breakdown</h3><div class="code-wrap"><div class="code-head"><span>PalindromeNumber.java</span><button class="copy-btn">Copy Code</button></div><pre><code>int num = 121, temp = num, rev = 0;
+while (temp > 0) {
+    int d = temp % 10;
+    rev = rev * 10 + d;
+    temp /= 10;
+}
+System.out.println(rev == num ? "Palindrome" : "Not Palindrome");</code></pre></div><ol class="steps"><li>Grab last digit using modulo.</li><li>Push it into reversed number.</li><li>Drop the last digit from temp.</li><li>Compare the mirror with original.</li></ol></div>
+            <div class="panel quiz-box"><h3>Interactive Checkpoint</h3><p>Will <code>12321</code> pass? Why?</p><button class="reveal-btn">Reveal Answer</button><div class="quiz-answer">Yes. Reversing it still gives <code>12321</code>.</div></div>
+          </div>
+        </details>
+
+        <details class="concept-card concept-item" data-title="fibonacci recursion">
+          <summary><div class="summary-left"><h2>6. Fibonacci using Recursion</h2><p>A problem that asks its smaller twins for help.</p></div><div class="summary-right"><span class="pill">Recursion</span><button class="master-btn">Mark Mastered</button></div></summary>
+          <div class="body">
+            <div class="panel hook"><h3>Hook Me</h3><p>Recursion is like a chain of managers. Each manager says, “I can answer, but first ask two smaller managers.” The chain continues until tiny base cases know the answer instantly.</p></div>
+            <div class="panel"><h3>Visual Anchor</h3><div class="ascii">fib(5)
+├─ fib(4)
+│  ├─ fib(3)
+│  │  ├─ fib(2)
+│  │  └─ fib(1)
+│  └─ fib(2)
+└─ fib(3)
+
+Base cases:
+fib(0)=0
+fib(1)=1</div></div>
+            <div class="panel"><h3>Code Breakdown</h3><div class="code-wrap"><div class="code-head"><span>FiboRec.java</span><button class="copy-btn">Copy Code</button></div><pre><code>static int fib(int n) {
+    if (n <= 1) return n;
+    return fib(n - 1) + fib(n - 2);
+}
+
+System.out.println(fib(6));</code></pre></div><ol class="steps"><li>Base case stops the infinite fall.</li><li>Every bigger call splits into two smaller calls.</li><li>Results bubble back upward and combine.</li></ol></div>
+            <div class="panel quiz-box"><h3>Interactive Checkpoint</h3><p>Predict <code>fib(4)</code>.</p><button class="reveal-btn">Reveal Answer</button><div class="quiz-answer">Answer: <strong>3</strong>.</div></div>
+          </div>
+        </details>
+
+        <details class="concept-card concept-item" data-title="reverse string recursion">
+          <summary><div class="summary-left"><h2>7. Reverse a String using Recursion</h2><p>Peel from the front, rebuild from the back.</p></div><div class="summary-right"><span class="pill">String + Recursion</span><button class="master-btn">Mark Mastered</button></div></summary>
+          <div class="body">
+            <div class="panel hook"><h3>Hook Me</h3><p>Imagine a stack of cards. You remove the top card again and again, then place them back after everything else. The order flips naturally.</p></div>
+            <div class="panel"><h3>Visual Anchor</h3><div class="ascii">reverse("code")
+= reverse("ode") + 'c'
+= reverse("de")  + 'o' + 'c'
+= reverse("e")   + 'd' + 'o' + 'c'
+= "e" + "d" + "o" + "c"
+= "edoc"</div></div>
+            <div class="panel"><h3>Code Breakdown</h3><div class="code-wrap"><div class="code-head"><span>ReverseRec.java</span><button class="copy-btn">Copy Code</button></div><pre><code>static String reverse(String s) {
+    if (s.length() <= 1) return s;
+    return reverse(s.substring(1)) + s.charAt(0);
+}</code></pre></div><ol class="steps"><li>Base case: one or zero characters are already reversed.</li><li>Remove first character using <code>substring(1)</code>.</li><li>Reverse the rest first.</li><li>Attach the removed character at the end.</li></ol></div>
+            <div class="panel quiz-box"><h3>Interactive Checkpoint</h3><p>What does <code>reverse("java")</code> return?</p><button class="reveal-btn">Reveal Answer</button><div class="quiz-answer">Answer: <strong>avaj</strong>.</div></div>
+          </div>
+        </details>
+
+        <details class="concept-card concept-item" data-title="string palindrome without recursion">
+          <summary><div class="summary-left"><h2>8. Check String Palindrome without Recursion</h2><p>Two pointers walk toward each other.</p></div><div class="summary-right"><span class="pill">Two Pointer</span><button class="master-btn">Mark Mastered</button></div></summary>
+          <div class="body">
+            <div class="panel hook"><h3>Hook Me</h3><p>Think of two security guards starting at opposite ends of a hallway. If every pair they inspect matches, the hallway is perfectly symmetric.</p></div>
+            <div class="panel"><h3>Visual Anchor</h3><div class="ascii">s = "level"
+
+L -> l     <- R  l   match
+L -> e   <- R    e   match
+L -> v <- R      v   center reached
+
+No mismatch => palindrome</div></div>
+            <div class="panel"><h3>Code Breakdown</h3><div class="code-wrap"><div class="code-head"><span>StringPalindrome.java</span><button class="copy-btn">Copy Code</button></div><pre><code>String s = "level";
+int left = 0, right = s.length() - 1;
+boolean pal = true;
+while (left < right) {
+    if (s.charAt(left) != s.charAt(right)) {
+        pal = false;
+        break;
+    }
+    left++;
+    right--;
+}
+System.out.println(pal ? "Palindrome" : "Not Palindrome");</code></pre></div><ol class="steps"><li>Start from both ends.</li><li>Compare characters pair by pair.</li><li>On mismatch, stop early.</li><li>If pointers cross safely, it is a palindrome.</li></ol></div>
+            <div class="panel quiz-box"><h3>Interactive Checkpoint</h3><p>Will <code>"hello"</code> pass?</p><button class="reveal-btn">Reveal Answer</button><div class="quiz-answer">No. First mismatch appears at <code>h</code> and <code>o</code>.</div></div>
+          </div>
+        </details>
+
+        <details class="concept-card concept-item" data-title="sum of digits in string">
+          <summary><div class="summary-left"><h2>9. Sum of Digits Present in a String</h2><p>Mine numbers hidden inside text.</p></div><div class="summary-right"><span class="pill">String Scan</span><button class="master-btn">Mark Mastered</button></div></summary>
+          <div class="body">
+            <div class="panel hook"><h3>Hook Me</h3><p>Imagine sweeping a beach with a magnet. Letters are ordinary sand. Digits are metal pieces that snap to your scanner and get added to your treasure bag.</p></div>
+            <div class="panel"><h3>Visual Anchor</h3><div class="ascii">Input: "a1b2c9"
+
+'a' -> ignore
+'1' -> sum = 1
+'b' -> ignore
+'2' -> sum = 3
+'c' -> ignore
+'9' -> sum = 12</div></div>
+            <div class="panel"><h3>Code Breakdown</h3><div class="code-wrap"><div class="code-head"><span>DigitSumString.java</span><button class="copy-btn">Copy Code</button></div><pre><code>String s = "a1b2c9";
+int sum = 0;
+for (char ch : s.toCharArray()) {
+    if (Character.isDigit(ch)) {
+        sum += ch - '0';
+    }
+}
+System.out.println(sum);</code></pre></div><ol class="steps"><li>Convert string into characters.</li><li>Use <code>Character.isDigit()</code> to filter.</li><li><code>ch - '0'</code> converts char digit to integer.</li><li>Keep a running total.</li></ol></div>
+            <div class="panel quiz-box"><h3>Interactive Checkpoint</h3><p>What is the sum for <code>"x7y0z4"</code>?</p><button class="reveal-btn">Reveal Answer</button><div class="quiz-answer">Answer: <strong>11</strong>.</div></div>
+          </div>
+        </details>
+
+        <details class="concept-card concept-item" data-title="vowels consonants string">
+          <summary><div class="summary-left"><h2>10. Vowels and Consonants in a String</h2><p>Separate singers from beatboxers.</p></div><div class="summary-right"><span class="pill">Character Count</span><button class="master-btn">Mark Mastered</button></div></summary>
+          <div class="body">
+            <div class="panel hook"><h3>Hook Me</h3><p>In the orchestra of letters, vowels are open, musical voices. Consonants are sharper beats and blocks. Your code acts like a music director counting both groups.</p></div>
+            <div class="panel"><h3>Visual Anchor</h3><div class="ascii">Input: "Java"
+
+J -> consonant
+a -> vowel
+v -> consonant
+a -> vowel
+
+Total vowels = 2
+Total consonants = 2</div></div>
+            <div class="panel"><h3>Code Breakdown</h3><div class="code-wrap"><div class="code-head"><span>VowelConsonant.java</span><button class="copy-btn">Copy Code</button></div><pre><code>String s = "Java".toLowerCase();
+int vowels = 0, consonants = 0;
+for (char ch : s.toCharArray()) {
+    if (Character.isLetter(ch)) {
+        if ("aeiou".indexOf(ch) != -1) vowels++;
+        else consonants++;
+    }
+}
+System.out.println("Vowels=" + vowels + ", Consonants=" + consonants);</code></pre></div><ol class="steps"><li>Lowercase makes checking easier.</li><li>Ignore spaces, digits, symbols.</li><li>Use the vowel string as a membership test.</li><li>Everything alphabetic but not vowel becomes consonant.</li></ol></div>
+            <div class="panel quiz-box"><h3>Interactive Checkpoint</h3><p>Count vowels and consonants in <code>"code"</code>.</p><button class="reveal-btn">Reveal Answer</button><div class="quiz-answer">Vowels = <strong>2</strong> (<code>o, e</code>), Consonants = <strong>2</strong> (<code>c, d</code>).</div></div>
+          </div>
+        </details>
+
+        <details class="concept-card concept-item" data-title="balanced string">
+          <summary><div class="summary-left"><h2>11. Balanced String</h2><p>Brackets must open and close like matched doors.</p></div><div class="summary-right"><span class="pill">Stack</span><button class="master-btn">Mark Mastered</button></div></summary>
+          <div class="body">
+            <div class="panel hook"><h3>Hook Me</h3><p>A balanced string is like borrowing books from a library. Every opening bracket checks out a book, and every closing bracket must return the exact correct one in reverse order.</p></div>
+            <div class="panel"><h3>Visual Anchor</h3><div class="ascii">Input: {[()]}
+
+Read '{' -> push {
+Read '[' -> push [
+Read '(' -> push (
+Read ')' -> pop ( ✅
+Read ']' -> pop [ ✅
+Read '}' -> pop { ✅
+
+Stack empty => Balanced</div></div>
+            <div class="panel"><h3>Code Breakdown</h3><div class="code-wrap"><div class="code-head"><span>BalancedString.java</span><button class="copy-btn">Copy Code</button></div><pre><code>Stack&lt;Character&gt; st = new Stack&lt;&gt;();
+String s = "{[()]}";
+boolean ok = true;
+for (char ch : s.toCharArray()) {
+    if ("([{".indexOf(ch) != -1) st.push(ch);
+    else if (ch == ')' && (st.isEmpty() || st.pop() != '(')) ok = false;
+    else if (ch == ']' && (st.isEmpty() || st.pop() != '[')) ok = false;
+    else if (ch == '}' && (st.isEmpty() || st.pop() != '{')) ok = false;
+}
+ok = ok && st.isEmpty();
+System.out.println(ok ? "Balanced" : "Not Balanced");</code></pre></div><ol class="steps"><li>Open brackets go onto the stack.</li><li>Closing brackets must match the latest opener.</li><li>Wrong type or empty stack means failure.</li><li>Final stack must be empty too.</li></ol></div>
+            <div class="panel quiz-box"><h3>Interactive Checkpoint</h3><p>Does <code>"([)]"</code> pass?</p><button class="reveal-btn">Reveal Answer</button><div class="quiz-answer">No. The closing <code>)</code> expects <code>(</code>, but the stack top is <code>[</code>.</div></div>
+          </div>
+        </details>
+
+        <details class="concept-card concept-item" data-title="reverse each word string">
+          <summary><div class="summary-left"><h2>12. Reverse Each Word of a String</h2><p>Flip the letters, keep word positions.</p></div><div class="summary-right"><span class="pill">Split + Loop</span><button class="master-btn">Mark Mastered</button></div></summary>
+          <div class="body">
+            <div class="panel hook"><h3>Hook Me</h3><p>It is like turning every train coach around without changing the order of coaches in the train. Each word spins, but the sentence lineup stays.</p></div>
+            <div class="panel"><h3>Visual Anchor</h3><div class="ascii">"Java is fun"
+
+Java -> avaJ
+is   -> si
+fun  -> nuf
+
+Result: "avaJ si nuf"</div></div>
+            <div class="panel"><h3>Code Breakdown</h3><div class="code-wrap"><div class="code-head"><span>ReverseEachWord.java</span><button class="copy-btn">Copy Code</button></div><pre><code>String s = "Java is fun";
+String[] words = s.split(" ");
+StringBuilder ans = new StringBuilder();
+for (String word : words) {
+    ans.append(new StringBuilder(word).reverse()).append(" ");
+}
+System.out.println(ans.toString().trim());</code></pre></div><ol class="steps"><li>Split sentence into words.</li><li>Reverse each word individually.</li><li>Append reversed words with spaces.</li><li>Trim the extra trailing space.</li></ol></div>
+            <div class="panel quiz-box"><h3>Interactive Checkpoint</h3><p>Transform <code>"I love Java"</code>.</p><button class="reveal-btn">Reveal Answer</button><div class="quiz-answer">Answer: <strong>"I evol avaJ"</strong>.</div></div>
+          </div>
+        </details>
+
+        <details class="concept-card concept-item" data-title="anagram string">
+          <summary><div class="summary-left"><h2>13. Anagram String</h2><p>Same letters. Different arrangement.</p></div><div class="summary-right"><span class="pill">Frequency</span><button class="master-btn">Mark Mastered</button></div></summary>
+          <div class="body">
+            <div class="panel hook"><h3>Hook Me</h3><p>Anagrams are like LEGO builds made from the exact same bricks. The shape changes, but the inventory must match perfectly.</p></div>
+            <div class="panel"><h3>Visual Anchor</h3><div class="ascii">listen vs silent
+
+Letter counts:
+l:1  i:1  s:1  t:1  e:1  n:1
+l:1  i:1  s:1  e:1  n:1  t:1
+
+All frequencies balanced => anagram</div></div>
+            <div class="panel"><h3>Code Breakdown</h3><div class="code-wrap"><div class="code-head"><span>Anagram.java</span><button class="copy-btn">Copy Code</button></div><pre><code>String a = "listen", b = "silent";
+int[] freq = new int[26];
+for (char ch : a.toCharArray()) freq[ch - 'a']++;
+for (char ch : b.toCharArray()) freq[ch - 'a']--;
+boolean ok = true;
+for (int x : freq) {
+    if (x != 0) ok = false;
+}
+System.out.println(ok ? "Anagram" : "Not Anagram");</code></pre></div><ol class="steps"><li>Count letters of first string.</li><li>Subtract letters of second string.</li><li>If all buckets return to zero, the inventory matches.</li></ol></div>
+            <div class="panel quiz-box"><h3>Interactive Checkpoint</h3><p>Are <code>"race"</code> and <code>"care"</code> anagrams?</p><button class="reveal-btn">Reveal Answer</button><div class="quiz-answer">Yes. Same four letters, same frequencies.</div></div>
+          </div>
+        </details>
+
+        <details class="concept-card concept-item" data-title="reverse order string">
+          <summary><div class="summary-left"><h2>14. Arrange the Given String in Reverse Order</h2><p>Flip the whole string end-to-end.</p></div><div class="summary-right"><span class="pill">Reverse</span><button class="master-btn">Mark Mastered</button></div></summary>
+          <div class="body">
+            <div class="panel hook"><h3>Hook Me</h3><p>Imagine rewinding a voice note. The last sound becomes first. In strings, the final character marches to the front.</p></div>
+            <div class="panel"><h3>Visual Anchor</h3><div class="ascii">"hello"
+
+index: 0 1 2 3 4
+chars: h e l l o
+
+reverse scan:
+o l l e h
+=> "olleh"</div></div>
+            <div class="panel"><h3>Code Breakdown</h3><div class="code-wrap"><div class="code-head"><span>ReverseString.java</span><button class="copy-btn">Copy Code</button></div><pre><code>String s = "hello";
+StringBuilder rev = new StringBuilder();
+for (int i = s.length() - 1; i >= 0; i--) {
+    rev.append(s.charAt(i));
+}
+System.out.println(rev);</code></pre></div><ol class="steps"><li>Start at last index.</li><li>Append characters backward.</li><li>The new string becomes the reverse.</li></ol></div>
+            <div class="panel quiz-box"><h3>Interactive Checkpoint</h3><p>What is the reverse of <code>"level up"</code>?</p><button class="reveal-btn">Reveal Answer</button><div class="quiz-answer">Answer: <strong>"pu level"</strong>.</div></div>
+          </div>
+        </details>
+
+        <details class="concept-card concept-item" data-title="find min in array">
+          <summary><div class="summary-left"><h2>15. Find Minimum in an Array</h2><p>Keep the smallest champion seen so far.</p></div><div class="summary-right"><span class="pill">Array Scan</span><button class="master-btn">Mark Mastered</button></div></summary>
+          <div class="body">
+            <div class="panel hook"><h3>Hook Me</h3><p>This is a tournament where every new value challenges the current champion. If a smaller fighter appears, the throne changes hands.</p></div>
+            <div class="panel"><h3>Visual Anchor</h3><div class="ascii">arr = [8, 3, 11, 2, 6]
+
+min = 8
+see 3 -> smaller -> min = 3
+see 11 -> ignore
+see 2 -> smaller -> min = 2
+see 6 -> ignore
+
+Final min = 2</div></div>
+            <div class="panel"><h3>Code Breakdown</h3><div class="code-wrap"><div class="code-head"><span>ArrayMin.java</span><button class="copy-btn">Copy Code</button></div><pre><code>int[] arr = {8, 3, 11, 2, 6};
+int min = arr[0];
+for (int i = 1; i < arr.length; i++) {
+    if (arr[i] < min) min = arr[i];
+}
+System.out.println(min);</code></pre></div><ol class="steps"><li>Assume first element is minimum.</li><li>Compare every next element with current min.</li><li>Update when a smaller value appears.</li></ol></div>
+            <div class="panel quiz-box"><h3>Interactive Checkpoint</h3><p>Find the minimum in <code>[5, 9, -1, 7]</code>.</p><button class="reveal-btn">Reveal Answer</button><div class="quiz-answer">Answer: <strong>-1</strong>.</div></div>
+          </div>
+        </details>
+
+        <details class="concept-card concept-item" data-title="second smallest element array without sorting">
+          <summary><div class="summary-left"><h2>16. 2nd Smallest Element without Sorting</h2><p>Track gold and silver in one pass.</p></div><div class="summary-right"><span class="pill">Array Logic</span><button class="master-btn">Mark Mastered</button></div></summary>
+          <div class="body">
+            <div class="panel hook"><h3>Hook Me</h3><p>You are managing a race leaderboard. You do not sort every runner. You only keep track of first place and second place as the race unfolds.</p></div>
+            <div class="panel"><h3>Visual Anchor</h3><div class="ascii">arr = [7, 2, 9, 4, 1]
+
+smallest = INF, second = INF
+7 -> smallest=7
+2 -> second=7, smallest=2
+9 -> ignore
+4 -> second=4
+1 -> second=2, smallest=1
+
+Result: second = 2</div></div>
+            <div class="panel"><h3>Code Breakdown</h3><div class="code-wrap"><div class="code-head"><span>SecondSmallest.java</span><button class="copy-btn">Copy Code</button></div><pre><code>int[] arr = {7, 2, 9, 4, 1};
+int first = Integer.MAX_VALUE, second = Integer.MAX_VALUE;
+for (int x : arr) {
+    if (x < first) {
+        second = first;
+        first = x;
+    } else if (x > first && x < second) {
+        second = x;
+    }
+}
+System.out.println(second);</code></pre></div><ol class="steps"><li><code>first</code> stores smallest.</li><li><code>second</code> stores second smallest.</li><li>If a new minimum arrives, the old minimum drops to second.</li><li>The <code>x &gt; first</code> check avoids duplicate confusion.</li></ol></div>
+            <div class="panel quiz-box"><h3>Interactive Checkpoint</h3><p>What is the 2nd smallest in <code>[3, 1, 8, 2]</code>?</p><button class="reveal-btn">Reveal Answer</button><div class="quiz-answer">Answer: <strong>2</strong>.</div></div>
+          </div>
+        </details>
+
+        <details class="concept-card concept-item" data-title="remove duplicate elements from array">
+          <summary><div class="summary-left"><h2>17. Remove Duplicate Elements from Array</h2><p>Let each value enter only once.</p></div><div class="summary-right"><span class="pill">Set Logic</span><button class="master-btn">Mark Mastered</button></div></summary>
+          <div class="body">
+            <div class="panel hook"><h3>Hook Me</h3><p>Think of a concert gate with a smart wristband scanner. If a visitor has already entered, the scanner blocks the duplicate entry.</p></div>
+            <div class="panel"><h3>Visual Anchor</h3><div class="ascii">Input: [1, 2, 2, 3, 1, 4]
+
+Seen set:
+1 -> add
+2 -> add
+2 -> skip
+3 -> add
+1 -> skip
+4 -> add
+
+Output: [1, 2, 3, 4]</div></div>
+            <div class="panel"><h3>Code Breakdown</h3><div class="code-wrap"><div class="code-head"><span>RemoveDuplicates.java</span><button class="copy-btn">Copy Code</button></div><pre><code>int[] arr = {1, 2, 2, 3, 1, 4};
+LinkedHashSet&lt;Integer&gt; set = new LinkedHashSet&lt;&gt;();
+for (int x : arr) set.add(x);
+System.out.println(set);</code></pre></div><ol class="steps"><li><code>LinkedHashSet</code> keeps insertion order.</li><li>Duplicate adds are automatically ignored.</li><li>The final set behaves like duplicate-free output.</li></ol></div>
+            <div class="panel quiz-box"><h3>Interactive Checkpoint</h3><p>What remains from <code>[5,5,5,2,2,9]</code>?</p><button class="reveal-btn">Reveal Answer</button><div class="quiz-answer">Answer: <strong>[5, 2, 9]</strong>.</div></div>
+          </div>
+        </details>
+
+        <details class="concept-card concept-item" data-title="linear search">
+          <summary><div class="summary-left"><h2>18. Linear Search</h2><p>Check items one by one like scanning a line.</p></div><div class="summary-right"><span class="pill">Search</span><button class="master-btn">Mark Mastered</button></div></summary>
+          <div class="body">
+            <div class="panel hook"><h3>Hook Me</h3><p>You lost your pen in a row of desks. Linear search means checking each desk one after another until you find it or run out of desks.</p></div>
+            <div class="panel"><h3>Visual Anchor</h3><div class="ascii">arr = [4, 8, 1, 6], target = 1
+
+index 0 -> 4 != 1
+index 1 -> 8 != 1
+index 2 -> 1 == 1 ✅ found</div></div>
+            <div class="panel"><h3>Code Breakdown</h3><div class="code-wrap"><div class="code-head"><span>LinearSearch.java</span><button class="copy-btn">Copy Code</button></div><pre><code>int[] arr = {4, 8, 1, 6};
+int target = 1, index = -1;
+for (int i = 0; i < arr.length; i++) {
+    if (arr[i] == target) {
+        index = i;
+        break;
+    }
+}
+System.out.println(index);</code></pre></div><ol class="steps"><li>Walk from left to right.</li><li>Compare current element with target.</li><li>Store index and stop when found.</li><li><code>-1</code> means not found.</li></ol></div>
+            <div class="panel quiz-box"><h3>Interactive Checkpoint</h3><p>What is returned when target <code>10</code> is not present?</p><button class="reveal-btn">Reveal Answer</button><div class="quiz-answer">Answer: <strong>-1</strong>.</div></div>
+          </div>
+        </details>
+
+        <details class="concept-card concept-item" data-title="binary search">
+          <summary><div class="summary-left"><h2>19. Binary Search</h2><p>Cut the search space in half every move.</p></div><div class="summary-right"><span class="pill">Divide & Conquer</span><button class="master-btn">Mark Mastered</button></div></summary>
+          <div class="body">
+            <div class="panel hook"><h3>Hook Me</h3><p>It is like guessing a word in a dictionary. You do not start from page 1. You jump to the middle, decide left or right, and shrink the world fast.</p></div>
+            <div class="panel"><h3>Visual Anchor</h3><div class="ascii">Sorted arr = [2, 5, 8, 12, 16, 23], target = 12
+
+low=0, high=5
+mid=2 -> 8 < 12 => move right
+low=3, high=5
+mid=4 -> 16 > 12 => move left
+low=3, high=3
+mid=3 -> 12 found ✅</div></div>
+            <div class="panel"><h3>Code Breakdown</h3><div class="code-wrap"><div class="code-head"><span>BinarySearch.java</span><button class="copy-btn">Copy Code</button></div><pre><code>int[] arr = {2, 5, 8, 12, 16, 23};
+int target = 12, low = 0, high = arr.length - 1;
+while (low <= high) {
+    int mid = (low + high) / 2;
+    if (arr[mid] == target) {
+        System.out.println(mid);
+        break;
+    } else if (arr[mid] < target) low = mid + 1;
+    else high = mid - 1;
+}</code></pre></div><ol class="steps"><li>Works only on sorted arrays.</li><li>Pick middle element.</li><li>Discard half where target cannot exist.</li><li>Repeat until found or range dies.</li></ol></div>
+            <div class="panel quiz-box"><h3>Interactive Checkpoint</h3><p>If target is <code>5</code>, what index is found?</p><button class="reveal-btn">Reveal Answer</button><div class="quiz-answer">Answer: <strong>1</strong>.</div></div>
+          </div>
+        </details>
+
+        <details class="concept-card concept-item" data-title="matrix multiplication">
+          <summary><div class="summary-left"><h2>20. Matrix Multiplication</h2><p>Rows shake hands with columns.</p></div><div class="summary-right"><span class="pill">2D Array</span><button class="master-btn">Mark Mastered</button></div></summary>
+          <div class="body">
+            <div class="panel hook"><h3>Hook Me</h3><p>Matrix multiplication is like scoring a team battle. Each row from the first matrix fights each column from the second, and the combined products decide one cell in the result.</p></div>
+            <div class="panel"><h3>Visual Anchor</h3><div class="ascii">A = [1 2]
+    [3 4]
+
+B = [5 6]
+    [7 8]
+
+C[0][0] = 1*5 + 2*7 = 19
+C[0][1] = 1*6 + 2*8 = 22
+C[1][0] = 3*5 + 4*7 = 43
+C[1][1] = 3*6 + 4*8 = 50</div></div>
+            <div class="panel"><h3>Code Breakdown</h3><div class="code-wrap"><div class="code-head"><span>MatrixMultiply.java</span><button class="copy-btn">Copy Code</button></div><pre><code>int[][] a = {{1, 2}, {3, 4}};
+int[][] b = {{5, 6}, {7, 8}};
+int[][] c = new int[2][2];
+for (int i = 0; i < 2; i++) {
+    for (int j = 0; j < 2; j++) {
+        for (int k = 0; k < 2; k++) {
+            c[i][j] += a[i][k] * b[k][j];
+        }
+    }
+}</code></pre></div><ol class="steps"><li><code>i</code> chooses row from A.</li><li><code>j</code> chooses column from B.</li><li><code>k</code> walks across row-column pairs.</li><li>Products are accumulated into one result cell.</li></ol></div>
+            <div class="panel quiz-box"><h3>Interactive Checkpoint</h3><p>What is <code>C[0][0]</code> for the matrices above?</p><button class="reveal-btn">Reveal Answer</button><div class="quiz-answer">Answer: <strong>19</strong>.</div></div>
+          </div>
+        </details>
+
+        <details class="concept-card concept-item" data-title="pascal triangle">
+          <summary><div class="summary-left"><h2>21. Pascal Triangle</h2><p>Every interior number is born from two parents.</p></div><div class="summary-right"><span class="pill">Pattern + 2D Logic</span><button class="master-btn">Mark Mastered</button></div></summary>
+          <div class="body">
+            <div class="panel hook"><h3>Hook Me</h3><p>Imagine a pyramid of bricks where every middle brick is made by merging the two bricks directly above it. The edges are always 1 because they have only one outer wall.</p></div>
+            <div class="panel"><h3>Visual Anchor</h3><div class="ascii">        1
+      1   1
+    1   2   1
+  1   3   3   1
+1   4   6   4   1
+
+Rule:
+arr[i][0] = 1
+arr[i][i] = 1
+arr[i][j] = arr[i-1][j-1] + arr[i-1][j]</div></div>
+            <div class="panel"><h3>Code Breakdown</h3><div class="code-wrap"><div class="code-head"><span>PascalTriangle.java</span><button class="copy-btn">Copy Code</button></div><pre><code>int n = 5;
+int[][] p = new int[n][n];
+for (int i = 0; i < n; i++) {
+    for (int j = 0; j <= i; j++) {
+        if (j == 0 || j == i) p[i][j] = 1;
+        else p[i][j] = p[i - 1][j - 1] + p[i - 1][j];
+        System.out.print(p[i][j] + " ");
+    }
+    System.out.println();
+}</code></pre></div><ol class="steps"><li>Only fill positions up to the current row index.</li><li>Edges are always 1.</li><li>Interior values come from two numbers above.</li><li>Print row by row.</li></ol></div>
+            <div class="panel quiz-box"><h3>Interactive Checkpoint</h3><p>What is the middle value in row <code>1 4 6 4 1</code>?</p><button class="reveal-btn">Reveal Answer</button><div class="quiz-answer">Answer: <strong>6</strong>.</div></div>
+          </div>
+        </details>
+
+        <details class="concept-card concept-item" data-title="sum of diagonal elements 2d array">
+          <summary><div class="summary-left"><h2>22. Sum of Diagonal Elements in 2D Array</h2><p>Add the main slash of the matrix.</p></div><div class="summary-right"><span class="pill">Matrix</span><button class="master-btn">Mark Mastered</button></div></summary>
+          <div class="body">
+            <div class="panel hook"><h3>Hook Me</h3><p>Imagine a city map where only the VIP road from top-left to bottom-right counts. You ignore all side streets and total only the main diagonal tolls.</p></div>
+            <div class="panel"><h3>Visual Anchor</h3><div class="ascii">[1 2 3]
+[4 5 6]
+[7 8 9]
+
+Main diagonal:
+(0,0)=1
+(1,1)=5
+(2,2)=9
+
+Sum = 15</div></div>
+            <div class="panel"><h3>Code Breakdown</h3><div class="code-wrap"><div class="code-head"><span>DiagonalSum.java</span><button class="copy-btn">Copy Code</button></div><pre><code>int[][] arr = {{1,2,3},{4,5,6},{7,8,9}};
+int sum = 0;
+for (int i = 0; i < arr.length; i++) {
+    sum += arr[i][i];
+}
+System.out.println(sum);</code></pre></div><ol class="steps"><li>Row and column indexes match on the main diagonal.</li><li><code>arr[i][i]</code> visits only diagonal cells.</li><li>Accumulate the total.</li></ol></div>
+            <div class="panel quiz-box"><h3>Interactive Checkpoint</h3><p>What is the diagonal sum of <code>{{2,0},{7,3}}</code>?</p><button class="reveal-btn">Reveal Answer</button><div class="quiz-answer">Answer: <strong>5</strong>.</div></div>
+          </div>
+        </details>
+
+        <details class="concept-card concept-item" data-title="consecutive frequency of characters">
+          <summary><div class="summary-left"><h2>23. Consecutive Frequency of Characters</h2><p>Compress repeating runs.</p></div><div class="summary-right"><span class="pill">Run-Length Logic</span><button class="master-btn">Mark Mastered</button></div></summary>
+          <div class="body">
+            <div class="panel hook"><h3>Hook Me</h3><p>Imagine a stadium crowd chant. Instead of writing every scream, you record the sound plus how many times it repeated in one uninterrupted burst.</p></div>
+            <div class="panel"><h3>Visual Anchor</h3><div class="ascii">Input: aaabbccccd
+
+Run 1: a a a -> a3
+Run 2: b b   -> b2
+Run 3: c c c c -> c4
+Run 4: d -> d1
+
+Output: a3b2c4d1</div></div>
+            <div class="panel"><h3>Code Breakdown</h3><div class="code-wrap"><div class="code-head"><span>ConsecutiveFrequency.java</span><button class="copy-btn">Copy Code</button></div><pre><code>String s = "aaabbccccd";
+StringBuilder out = new StringBuilder();
+for (int i = 0; i < s.length(); ) {
+    char ch = s.charAt(i);
+    int count = 0;
+    while (i < s.length() && s.charAt(i) == ch) {
+        count++;
+        i++;
+    }
+    out.append(ch).append(count);
+}
+System.out.println(out);</code></pre></div><ol class="steps"><li>Pick the current character.</li><li>Count how long that run continues.</li><li>Append character plus frequency.</li><li>Move to the next new character block.</li></ol></div>
+            <div class="panel quiz-box"><h3>Interactive Checkpoint</h3><p>Compress <code>"xxxyzz"</code>.</p><button class="reveal-btn">Reveal Answer</button><div class="quiz-answer">Answer: <strong>x3y1z2</strong>.</div></div>
+          </div>
+        </details>
+      </section>
+    </section>
+
+    <div class="footer-note">Built for deep Java practice with visual hooks, fast revision, and mini-checkpoints.</div>
+  </main>
+
+  <script>
+    const conceptItems = [...document.querySelectorAll('.concept-item')];
+    const navList = document.getElementById('navList');
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
+    const openCount = document.getElementById('openCount');
+    const searchBox = document.getElementById('searchBox');
+    const toggleAllBtn = document.getElementById('toggleAllBtn');
+    const emptyMsg = document.getElementById('emptyMsg');
+    const themeBtn = document.getElementById('themeBtn');
+
+    conceptItems.forEach((item, index) => {
+      item.id = `concept-${index + 1}`;
+      const title = item.querySelector('h2').textContent;
+      const li = document.createElement('li');
+      li.innerHTML = `<a href="#${item.id}"><span>${title}</span><span class="badge">${index + 1}</span></a>`;
+      navList.appendChild(li);
+    });
+
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const code = btn.closest('.code-wrap').querySelector('code').innerText;
+        await navigator.clipboard.writeText(code);
+        const old = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = old, 1400);
+      });
+    });
+
+    document.querySelectorAll('.reveal-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const answer = btn.nextElementSibling;
+        answer.classList.toggle('show');
+        btn.textContent = answer.classList.contains('show') ? 'Hide Answer' : 'Reveal Answer';
+      });
+    });
+
+    function updateProgress() {
+      const mastered = document.querySelectorAll('.master-btn.mastered').length;
+      const total = document.querySelectorAll('.master-btn').length;
+      const percent = (mastered / total) * 100;
+      progressBar.style.width = percent + '%';
+      progressText.textContent = `${mastered} / ${total}`;
+    }
+
+    document.querySelectorAll('.master-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        btn.classList.toggle('mastered');
+        btn.textContent = btn.classList.contains('mastered') ? '✓ Mastered' : 'Mark Mastered';
+        updateProgress();
+      });
+    });
+
+    searchBox.addEventListener('input', () => {
+      const q = searchBox.value.toLowerCase().trim();
+      let visible = 0;
+      conceptItems.forEach(item => {
+        const text = (item.dataset.title + ' ' + item.innerText).toLowerCase();
+        const show = text.includes(q);
+        item.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+      openCount.textContent = visible;
+      emptyMsg.style.display = visible ? 'none' : 'block';
+      [...navList.children].forEach((li, idx) => {
+        li.style.display = conceptItems[idx].style.display === 'none' ? 'none' : '';
+      });
+    });
+
+    let allOpen = false;
+    toggleAllBtn.addEventListener('click', () => {
+      allOpen = !allOpen;
+      conceptItems.forEach(item => item.open = allOpen);
+      toggleAllBtn.textContent = allOpen ? 'Close All' : 'Open All';
+    });
+
+    themeBtn.addEventListener('click', () => {
+      const root = document.documentElement;
+      const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      themeBtn.textContent = next === 'dark' ? '🌙' : '☀️';
+    });
+
+    updateProgress();
+  </script>
+</body>
+</html>

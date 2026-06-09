@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animation 1 - Move Left to Right</title>
+    <style>
+        #movingBox {
+            height: 300px;
+            width: 300px;
+            background-color: red;
+            margin: 20px;
+            animation-name: moveLeftToRight;
+            animation-duration: 3s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+            animation-direction: alternate;
+            border: 4px solid darkred;
+        }
+
+        @keyframes moveLeftToRight {
+            from { margin-left: 0px; }
+            to   { margin-left: 600px; }
+        }
+    </style>
+</head>
+<body>
+    <h2>Box Moving Left to Right</h2>
+    <div id="movingBox"></div>
+</body>
+</html>

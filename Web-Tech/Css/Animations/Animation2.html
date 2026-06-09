@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animation 2 - Rotation</title>
+    <style>
+        #rotatingBox {
+            height: 300px;
+            width: 300px;
+            background-color: red;
+            margin: 40px auto;
+            animation-name: rotateBox;
+            animation-duration: 2s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+            border: 4px solid darkred;
+        }
+
+        @keyframes rotateBox {
+            from { transform: rotate(0deg); }
+            to   { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <h2>Rotating Box</h2>
+    <div id="rotatingBox"></div>
+</body>
+</html>
